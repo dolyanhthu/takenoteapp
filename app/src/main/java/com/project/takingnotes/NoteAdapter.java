@@ -9,7 +9,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -41,7 +40,6 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.ViewHolder>{
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Note note = notes.get(position);
 
-        holder.position = position;
         holder.id = note.getId();
         holder.title.setText(note.getTitle());
         holder.content.setText(note.getContent());
@@ -58,7 +56,6 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.ViewHolder>{
         TextView content;
         TextView date;
         String id;
-        int position;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -98,7 +95,7 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.ViewHolder>{
                         return true;
                     case 2:
                         dbHandler.deleteNote(id);
-                        notes.remove(position);
+                        notes.remove(getAdapterPosition());
                         notifyDataSetChanged();
                         return true;
                 }
